@@ -2,6 +2,9 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 export default function Navigation() {
+  const user = { name: "Guest" };
+  const logout = () => console.log("Logout clicked");
+
   return (
     <div>
       <header>
@@ -13,7 +16,7 @@ export default function Navigation() {
           </ul>
           <ul>
             <li>
-              <NavLink to="/dasboard">Dashboard</NavLink>
+              <NavLink to="/dashboard">Dashboard</NavLink>
             </li>
             <li>
               <NavLink to="/courses">Courses</NavLink>
@@ -23,7 +26,7 @@ export default function Navigation() {
             </li>
           </ul>
           <ul>
-            <li>Welcome,{user.user.name ? user.user.name:"Guest"}</li>
+            <li>Welcome, {user.name}</li>
             <li className="bold" onClick={logout}>Logout</li>
           </ul>
         </nav>

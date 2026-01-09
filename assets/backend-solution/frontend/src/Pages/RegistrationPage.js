@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import "./register.css";
+import "../login.css";
 
 export default function RegistrationPage() {
     const [fullName, setFullName] = useState("");

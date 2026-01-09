@@ -1,28 +1,24 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import "./App.css";
+import {createBrowserRouter,RouterProvider,Navigate,} from "react-router-dom";
+
+import Layout from "./Pages/Layout";
 import LoginPage from "./Pages/LoginPage";
 import RegistrationPage from "./Pages/RegistrationPage";
-import Layout from "./Pages/Layout";
 
-import Dashboard from "./Pages/Dashboard";
-import Courses from "./Pages/Courses";
-import CoursesDetails from "./Pages/CoursesDetails";
-import Mentors from "./Pages/Mentors";
+function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        { index: true, element: <Navigate to="/login" replace /> },
+        { path: "login", element: <LoginPage /> },
+        { path: "register", element: <RegistrationPage /> },
+      ],
+    },
+  ]);
 
-export default function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<Navigate to="/login" replace />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegistrationPage />} />
-      <Route path="/" element={<Layout />}>
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="courses">
-          <Route index element={<Courses />} />
-          <Route path=":id" element={<CoursesDetails />} />
-        </Route>
-        <Route path="mentors" element={<Mentors/>} />
-      </Route>
-      <Route path="*" element={<Navigate to="/login" replace />} />
-    </Routes>
-  );
+  return <RouterProvider router={router} />;
 }
+
+export default App;

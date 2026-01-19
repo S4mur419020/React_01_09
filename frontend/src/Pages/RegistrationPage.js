@@ -43,53 +43,52 @@ export default function RegistrationPage() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <div className="login">
+            <div className="scanner-bg"></div>
             <h2>CREATE ACCOUNT</h2>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    placeholder="Full name"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                />
+                <input
+                    type="text"
+                    placeholder="Email address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                {errors.email && (
+                    <span className="error-text">{errors.email}</span>
+                )}
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                {errors.password && (
+                    <span className="error-text">{errors.password}</span>
+                )}
+                <input
+                    type="password"
+                    placeholder="Confirm password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                {errors.confirmPassword && (
+                    <span className="error-text">{errors.confirmPassword}</span>
+                )}
 
-            <input
-                type="text"
-                placeholder="Full name"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-            />
+                <button type="submit">CREATE ACCOUNT</button>
 
-            <input
-                type="text"
-                placeholder="Email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-            {errors.email && (
-                <span className="error-text">{errors.email}</span>
-            )}
-
-            <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            {errors.password && (
-                <span className="error-text">{errors.password}</span>
-            )}
-
-            <input
-                type="password"
-                placeholder="Confirm password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-            {errors.confirmPassword && (
-                <span className="error-text">{errors.confirmPassword}</span>
-            )}
-
-            <button type="submit">CREATE ACCOUNT</button>
-
-            <p>
-                Already have an account?{" "}
-                <NavLink to="/">Login</NavLink>
-            </p>
-        </form>
+                <p>
+                    Already have an account?{" "}
+                    <NavLink to="/">Login</NavLink>
+                </p>
+            </form>
+        </div>
     );
 }
 

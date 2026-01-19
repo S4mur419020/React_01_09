@@ -44,7 +44,7 @@ export default function LoginPage() {
 
   return (
     <div className="login">
-      <div classNme="scanner-bg" ></div>
+      <div className="scanner-bg" ></div>
       
         <h1>WELCOME BACK</h1>
 

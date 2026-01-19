@@ -11,6 +11,7 @@ export function AuthProvider({ children }) {
 
   function login(adat) {
     setLoading(true);
+    setServerError(null);
     myAxios
       .post("/users/login", adat)
       .then(function (response) {
@@ -20,6 +21,7 @@ export function AuthProvider({ children }) {
         window.location.href = "/";
       })
       .catch(function (error) {
+        hibakezeles(error);
         console.log(error);
       })
       .finally(function () {
@@ -28,11 +30,13 @@ export function AuthProvider({ children }) {
   }
   function register(adat) {
     setLoading(true);
-    myAxios.post("/user/login", adat)
+    setServerError(null);
+    myAxios.post("/users/register", adat)
       .then(function (response) {
         window.location.href = "/login";
       })
       .catch(function (error) {
+        hibakezeles(error);
         console.log(error);
       })
       .finally(function () {
@@ -96,7 +100,7 @@ export function AuthProvider({ children }) {
 
   }
   return (
-    <AuthContext.Provider value={{ login, register, loading, user, logout, serverError, loadUser}}>
+    <AuthContext.Provider value={{ login, register, loading, user, logout, serverError, loadUser, hibakezeles}}>
       {children}
     </AuthContext.Provider>
   )

@@ -16,20 +16,23 @@ body {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: repeating-linear-gradient(
-    45deg,
-    rgba(138, 43, 226, 0.4) 0px,
-    rgba(138, 43, 226, 0.4) 50px,
-    rgba(0, 255, 255, 0.4) 50px,
-    rgba(0, 255, 255, 0.4) 100px
+  background: linear-gradient(
+    132deg,
+    #00a88c,
+    #323232,
+    #9e00fa,
+    #323232
+  
   );
-  animation: moveScanner 3s linear infinite;
+  background-size: 400% 400%;
+  animation: BackgroundGradient 15s ease infinite;
   z-index: 0;
 }
 
-@keyframes moveScanner {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  100% { transform: translate(50%, 50%) rotate(0deg); }
+@keyframes BackgroundGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 form {

@@ -1,4 +1,5 @@
-import React, { Children, useState } from 'react'
+import React, { useState, useEffect, createContext } from 'react';
+import myAxios, { getAuthHeaders } from "../services/api";
 
 export const AuthContext = createContext();
 
@@ -40,7 +41,7 @@ export function AuthProvider({ children }) {
 
   }
   function loadUser() {
-    const savedToken=localStorage.getItem("token");
+    const savedToken = localStorage.getItem("token");
 
     if (!savedToken) {
       setLoading(false);
@@ -53,7 +54,7 @@ export function AuthProvider({ children }) {
 
     myAxios
       .get("/users/me", {
-        headers:getAuthHeaders(),
+        headers: getAuthHeaders(),
       })
       .then(function (response) {
         const fetchedUser = response.data;
@@ -81,11 +82,22 @@ export function AuthProvider({ children }) {
     window.location.reload();
   }
   function hibakezeles(error) {
+    const status = error.response?.status;
+    if (status === 400) setServerError("Hibás adatok");
+    else if (status === 401)
+      setServerError(
+        "A hitelesítési token érvénytelen vagy lejárt. Menj a login oldalra!"
+      );
+    else if (status === 403) setServerError("Tiltott művelet");
+    else if (status === 404) setServerError("Nem található");
+    else if (status === 422) setServerError("Validációs hiba");
+    else if (status === 500) setServerError("Szerver hiba");
+    else setServerError("Ismeretlen hiba");
 
   }
   return (
-    <AuthContext.Provider value={{ login, register, loading, user, logout, serverError, loadUser }}>
-      {Children}
+    <AuthContext.Provider value={{ login, register, loading, user, logout, serverError, loadUser}}>
+      {children}
     </AuthContext.Provider>
   )
 }

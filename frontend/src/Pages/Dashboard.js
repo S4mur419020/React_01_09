@@ -1,9 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import "../dashboard.css"; 
+
 const Dashboard = () => {
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const loadUser = async () => {
+      try {
+        const response = await axios.get("/api/user");
+        setUser(response.data);
+      } catch (err) {
+        if (err.response?.status === 401) {
+          setError("Bejelentkezés szükséges");
+          navigate("/login");
+        } else {
+          setError("Hiba történt");
+        }
+      }
+    };
+
+    loadUser();
+  }, [navigate]);
+
+  if (!user) return <p>{error || "Betöltés..."}</p>;
+
   return (
     <div className="dashboard-container">
       <h1>WELCOME BACK, JOHN DOE!</h1>
-      <p>Current Balance: <strong>25 Credits</strong></p>
+      <p>
+        Current Balance: <strong>25 Credits</strong>
+      </p>
 
       <div className="stats-grid">
         <div className="stat-card">
@@ -30,7 +60,7 @@ const Dashboard = () => {
 
         <div className="section-card">
           <h3>Course Completion Status</h3>
-          <p>Completed /Remaining</p>
+          <p>Completed / Remaining</p>
         </div>
       </div>
 

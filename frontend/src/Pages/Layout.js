@@ -1,15 +1,14 @@
-import { useContext } from "react";
-import { Outlet } from "react-router-dom";
+import React from "react";
 import Navigation from "./Navigation";
-import { AuthContext } from "../contexts/AuthContext";
+import { Outlet } from "react-router";
 
 export default function Layout() {
-  const { user } = useContext(AuthContext);
-
   return (
-    <>
-      {user && <Navigation />}
-      <Outlet />
-    </>
+    <div>
+      <Navigation />
+      <main>
+        <Outlet />
+      </main>
+    </div>
   );
 }

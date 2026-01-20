@@ -1,30 +1,27 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { AuthContext } from "../contexts/AuthContext";
+import "../navigation.css";
+import {AuthContext} from "../contexts/AuthContext";
 
 export default function Navigation() {
-  const { user, logout } = useContext(AuthContext);
+  const { logout, user, loading } = useContext(AuthContext);
+  if (loading) return null;
 
   return (
     <header>
       <nav>
         <ul>
-          <li>
-            <strong>SKILLSHARE ACADEMY</strong>
-          </li>
+          <li className="bold"><strong>SKILLSHARE ACADEMY</strong></li>
         </ul>
-
         <ul>
           <li><NavLink to="/dashboard">Dashboard</NavLink></li>
           <li><NavLink to="/courses">Courses</NavLink></li>
           <li><NavLink to="/mentors">Mentors</NavLink></li>
         </ul>
-
         <ul>
-          <li>Welcome, {user.name}</li>
-          <li onClick={logout} style={{ cursor: "pointer" }}>
-            Logout
-          </li>
+          <li className="kiemelt">{user?.creditBalance ?? 0} credits</li>
+          <li>Welcome {user?.name ?? "Guest"}</li>
+          {user && <li className="kiemelt" onClick={logout}>Logout</li>}
         </ul>
       </nav>
     </header>

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import "../login.css";
+import { AuthContext } from "../contexts/AuthContext";
 
 export default function RegistrationPage() {
     const [fullName, setFullName] = useState("");
@@ -8,6 +9,8 @@ export default function RegistrationPage() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errors, setErrors] = useState({});
+      const { register, serverError } = useContext(AuthContext);
+
 
     function validateForm() {
         const newErrors = {};
@@ -28,25 +31,32 @@ export default function RegistrationPage() {
         return newErrors;
     }
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        const validationErrors = validateForm();
+    function Submit(e) {
+    e.preventDefault();
 
-        if (Object.keys(validationErrors).length === 0) {
-            console.log("Registration successful", {
-                fullName,
-                email,
-                password,
-                confirmPassword,
-            });
-        }
+    const validationErrors = validateForm();
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length > 0) {
+      return;
     }
+
+    const user = {
+      name: fullName,
+      email,
+      password,
+      confirmPassword,
+    };
+
+    console.log(user);
+    register(user);
+  }
 
     return (
         <div className="login">
             <div className="scanner-bg"></div>
             <h2>CREATE ACCOUNT</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={Submit}>
                 <input
                     type="text"
                     placeholder="Full name"
@@ -83,10 +93,9 @@ export default function RegistrationPage() {
 
                 <button type="submit">CREATE ACCOUNT</button>
 
-                <p>
-                    Already have an account?{" "}
-                    <NavLink to="/">Login</NavLink>
-                </p>
+                <div className="descript">
+                    Already have an account? <NavLink to="/login">LOGIN</NavLink>
+                </div>
             </form>
         </div>
     );

@@ -47,7 +47,6 @@ export default function DashboardPage() {
   const userName = user?.user?.name || "Guest";
   const creditBalance = user?.user?.creditBalance || 0;
 
-  // ===== LINE CHART DATA =====
   const labels = Array.from({ length: 30 }, (_, i) => {
     const d = new Date();
     d.setDate(d.getDate() - (29 - i));
@@ -85,7 +84,6 @@ export default function DashboardPage() {
     },
   };
 
-  // ===== DOUGHNUT CHART DATA =====
   const doughnutData = {
     labels: ["Completed Chapters", "Remaining Chapters"],
     datasets: [
@@ -127,8 +125,6 @@ export default function DashboardPage() {
         <h2 className="alahuzas">
           CURRENT BALANCE: <strong>{creditBalance}</strong> CREDITS
         </h2>
-
-        {/* METRICS */}
         <div className="dobozok">
           <div className="keret metric">
             <h3>{userStats.enrolledCourses || 0}</h3>
@@ -143,8 +139,6 @@ export default function DashboardPage() {
             <p>TOTAL CREDITS EARNED</p>
           </div>
         </div>
-
-        {/* CHARTS */}
         <div className="diagram">
           <div className="line keret">
             <Line data={lineData} options={lineOptions} />
@@ -153,8 +147,6 @@ export default function DashboardPage() {
             <Doughnut data={doughnutData} options={doughnutOptions} />
           </div>
         </div>
-
-        {/* ACTION BUTTONS */}
         <div className="actions">
           <button>BROWSE COURSES</button>
           <button>BOOK MENTOR SESSION</button>

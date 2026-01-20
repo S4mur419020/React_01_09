@@ -1,144 +1,144 @@
+/* ===== DASHBOARD CONTAINER ===== */
 .dashboard-container {
-  width: 100vw;
-  height: 100vh;
-  padding: 32px 16px;
-  background: linear-gradient(
-    132deg,
-    #00a88c,
-    #323232,
-    #9e00fa,
-    #323232
-  );
-  background-size: 400% 400%;
-  animation: BackgroundGradient 15s ease infinite;
+  width: 100%;
+  padding: 100px 16px 40px 16px; 
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  font-family: 'Arial', sans-serif;
-  color: #eef0ff;
-  overflow-y: auto;
+  gap: 30px;
 }
 
-@keyframes BackgroundGradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* ===== DOBOZOK / METRICS ===== */
+.dobozok {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.dashboard-container h1 {
-  font-size: 28px;
-  font-weight: bold;
+.dobozok .keret {
+  flex: 1;
+  min-width: 400px;
   text-align: center;
-  letter-spacing: 0.08em;
-  color: #fff;
-  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-  margin-bottom: 8px;
-}
-
-.dashboard-container p {
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.85);
-  margin-bottom: 32px;
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 18px;
-  width: 100%;
-  max-width: 900px;
-  margin-bottom: 32px;
-}
-
-.stat-card {
-  text-align: center;
-  padding: 18px 12px;
+  background: #1c1c1c;
+  color: #ccc;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.5);
   border-radius: 12px;
-  background: rgba(50, 50, 50, 0.7); 
-  border: 1px solid rgba(158, 0, 250, 0.3); 
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25),
-              0 0 0 1px rgba(255, 255, 255, 0.02) inset;
-  transition: transform 140ms ease, box-shadow 140ms ease;
+  padding: 20px;
 }
 
-.stat-card h2 {
+.metric {
+  background: rgba(28,32,51,0.8);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.metric:hover {
+  transform: translateY(-2px);
+}
+
+.metric h3 {
   margin: 0 0 6px 0;
   font-size: 20px;
-  color: #fff;
+  color: #eef0ff;
 }
 
-.stat-card p {
+.metric p {
   margin: 0;
   font-size: 12px;
   letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(236, 238, 255, 0.7);
 }
 
-.stat-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 18px 40px rgba(0, 255, 255, 0.18),  
-              0 12px 30px rgba(0, 0, 0, 0.35);
+/* ===== DIAGRAM / CHARTS ===== */
+.diagram {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
 }
 
-.dashboard-sections {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  width: 100%;
-  max-width: 900px;
-  margin-bottom: 32px;
+.diagram .line,
+.diagram .pie {
+  flex: 1;
+  min-width: 320px;
+  height: 320px;
+  background: #1c1c1c;
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.5);
 }
 
-.section-card {
-  background: rgba(50, 50, 50, 0.7); 
-  border: 1px solid rgba(158, 0, 250, 0.3); 
-  border-radius: 18px;
+.pie.keret {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
-  position: relative;
-  overflow: hidden;
+  height: auto;
 }
 
-.dashboard-actions {
+.pie.keret::before {
+  content: "";
+  position: absolute;
+  inset: -120px;
+  background:
+    radial-gradient(420px 260px at 15% 10%, rgba(120,110,255,0.35), transparent 60%),
+    radial-gradient(420px 260px at 85% 30%, rgba(170,120,255,0.22), transparent 60%),
+    radial-gradient(520px 340px at 50% 95%, rgba(90,120,255,0.14), transparent 60%);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+.pie canvas {
+  max-width: 100%;
+  max-height: 260px;
+  border-radius: 12px;
+}
+
+/* ===== ACTION BUTTONS ===== */
+.actions {
   display: flex;
   gap: 16px;
   justify-content: center;
   flex-wrap: wrap;
 }
 
-.dashboard-actions button {
+.actions button {
   padding: 12px 18px;
   border-radius: 12px;
-  border: 1px solid rgba(158, 0, 250, 0.4);
-  background: linear-gradient(180deg, #00a88c 0%, #9e00fa 100%);
-  color: #fff;
-  font-weight: bold;
+  border: 1px solid rgba(180,185,255,0.28);
+  background:
+    radial-gradient(120% 120% at 20% 20%, rgba(130,190,255,0.90), rgba(95,90,255,0.48)),
+    linear-gradient(180deg, rgba(255,255,255,0.10), rgba(0,0,0,0.10));
+  color: #0b0b12;
+  font-weight: 900;
   letter-spacing: 0.08em;
   cursor: pointer;
   transition: transform 140ms ease, filter 140ms ease, box-shadow 140ms ease;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 16px 40px rgba(70,140,255,0.14), 0 14px 40px rgba(0,0,0,0.35);
 }
 
-.dashboard-actions button:hover {
-  filter: brightness(1.1);
+.actions button:hover {
+  filter: brightness(1.05);
   transform: translateY(-1px);
-  box-shadow: 0 18px 46px rgba(0, 255, 255, 0.2),
-              0 18px 46px rgba(0, 0, 0, 0.38);
+  box-shadow: 0 18px 46px rgba(70,140,255,0.18), 0 18px 46px rgba(0,0,0,0.38);
 }
 
-.dashboard-actions button:active {
-  transform: translateY(0px);
-  filter: brightness(0.95);
+.actions button:active {
+  transform: translateY(0);
+  filter: brightness(0.98);
 }
 
+/* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
-  .dashboard-sections {
-    grid-template-columns: 1fr;
+  .diagram {
+    flex-direction: column;
   }
 }
 
 @media (max-width: 500px) {
-  .stats-grid {
-    grid-template-columns: 1fr;
+  .dobozok {
+    flex-direction: column;
   }
 }

@@ -111,3 +111,14 @@ form .descript a {
   color: #333;
   font-weight: bold;
 }
+@media (max-width: 900px) {
+  .dashboard-sections {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,20 +1,32 @@
 import axios from "axios";
 
-//Létrehozok egy saját axios példányt, a továbbiakban ezt használom az api hívásoknál, így az alapértelmezett header és végpont információkat tartalmazza.
-
-const myAxios = axios.create({
-    baseURL: "http://localhost:5000/api/v1",
-    headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-    },
+// Axios példány létrehozása
+export const myAxios = axios.create({
+  baseURL: "http://localhost:5000/api/v1",
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  },
 });
-export default myAxios;
-/* minden kérésnél a header-hez hozzá kell tenni a tokent.  */
+
+// Request interceptor, minden kéréshez hozzáadjuk a tokent, ha van
+myAxios.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers["X-API-TOKEN"] = token;
+  }
+  return config;
+});
+
+// Auth header-ek külön is elérhetőek, ha valami miatt manuálisan kell
 export function getAuthHeaders() {
-    const token = localStorage.getItem("token");
-    return {
+  const token = localStorage.getItem("token");
+  return token
+    ? {
         "X-API-TOKEN": token,
         "Content-Type": "application/json",
-    };
+      }
+    : {
+        "Content-Type": "application/json",
+      };
 }
